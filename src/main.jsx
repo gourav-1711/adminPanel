@@ -32,7 +32,7 @@ import ViewTestimonials from "./pages/testimonials/ViewTestimonials.jsx";
 import AddFaq from "./pages/faq/AddFaq.jsx";
 import ViewFaq from "./pages/faq/ViewFaq.jsx";
 import Profile from "./pages/profile/Profile.jsx";
-import CompanyProfile from "./pages/CompanyProfile.jsx/CompanyProfile.jsx";
+import CompanyProfile from "./pages/CompanyProfile/CompanyProfile.jsx";
 
 createRoot(document.getElementById("root")).render(
   <StrictMode>

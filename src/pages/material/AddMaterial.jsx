@@ -2,13 +2,39 @@ import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { Button } from "@/components/ui/button";
-
+import { useState } from "react";
 export default function AddMaterial() {
+  const [materialFormError, setMaterialFormError] = useState({
+    materialName: "",
+    order: "",
+  });
   const handleSubmit = (e) => {
     e.preventDefault();
     console.log(e.target.materialName.value);
     console.log(e.target.order.value);
+
+    // form error for add material
+    if (e.target.materialName.value === "") {
+      setMaterialFormError((prev) => ({
+        ...prev,
+        materialName: "Material Name is required",
+      }));
+    }
+    if (e.target.order.value === "") {
+      setMaterialFormError((prev) => ({
+        ...prev,
+        order: "Order is required",
+      }));
+    }
+    if (e.target.materialName.value !== "" && e.target.order.value !== "") {
+      alert("Material added successfully");
+      setMaterialFormError({
+        materialName: "",
+        order: "",
+      });
+    }
   };
+
   return (
     <div className="p-8 bg-background/50 w-[90%] mx-auto">
       <Card className="mx-auto">
@@ -32,6 +58,9 @@ export default function AddMaterial() {
                 placeholder="Material Name"
                 className="w-full"
               />
+              {materialFormError.materialName && (
+                <p className="text-red-500 text-sm">{materialFormError.materialName}</p>
+              )}
             </div>
 
             <div className="space-y-2">
@@ -47,6 +76,9 @@ export default function AddMaterial() {
                 placeholder="Order"
                 className="w-full"
               />
+              {materialFormError.order && (
+                <p className="text-red-500 text-sm">{materialFormError.order}</p>
+              )}
             </div>
             <Button type="submit" className="bg-primary hover:bg-primary/90 mt-2">
               Add Material

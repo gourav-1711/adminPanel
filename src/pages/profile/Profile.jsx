@@ -1,5 +1,3 @@
-"use client";
-
 import { useState } from "react";
 import { Upload, Phone, Mail, KeyRound } from "lucide-react";
 import { Button } from "@/components/ui/button";
@@ -13,6 +11,21 @@ export default function Profile() {
   const [activeTab, setActiveTab] = useState("edit-profile");
   const [image, setImage] = useState(null);
 
+  // form error for edit profile
+  const [profileFormError, setProfileFormError] = useState({
+    name: "",
+    email: "",
+    mobile: "",
+    profileImage: "",
+  });
+
+  // form error for change password
+  const [passwordFormError, setPasswordFormError] = useState({
+    currentPassword: "",
+    newPassword: "",
+    confirmPassword: "",
+  });
+
   // handle submit for edit profile
   const handleSubmit = (e) => {
     e.preventDefault();
@@ -20,6 +33,41 @@ export default function Profile() {
     console.log(e.target.name.value);
     console.log(e.target.email.value);
     console.log(e.target.mobile.value);
+
+    // form error for edit profile
+    if (e.target.profileImage.value === "") {
+      setProfileFormError({
+        ...profileFormError,
+        profileImage: "Profile Image is required",
+      });
+    }
+    if (e.target.name.value === "") {
+      setProfileFormError((prev) => ({
+        ...prev,
+        name: "Name is required",
+      }));
+    }
+    if (e.target.email.value === "") {
+      setProfileFormError((prev) => ({
+        ...prev,
+        email: "Email is required",
+      }));
+    }
+    if (e.target.mobile.value === "") {
+      setProfileFormError((prev) => ({
+        ...prev,
+        mobile: "Mobile Number is required",
+      }));
+    } 
+    if (e.target.profileImage.value !== "" && e.target.name.value !== "" && e.target.email.value !== "" && e.target.mobile.value !== "") {
+      alert("Profile updated successfully");
+      setProfileFormError({
+        name: "",
+        email: "",
+        mobile: "",
+        profileImage: "",
+      });
+    }
   };
 
   // handle submit for change password
@@ -28,6 +76,34 @@ export default function Profile() {
     console.log(e.target.currentPassword.value);
     console.log(e.target.newPassword.value);
     console.log(e.target.confirmPassword.value);
+
+    // form error for change password
+    if (e.target.currentPassword.value === "") {
+      setPasswordFormError((prev) => ({
+        ...prev,
+        currentPassword: "Current Password is required",
+      }));
+    }
+    if (e.target.newPassword.value === "") {
+      setPasswordFormError((prev) => ({
+        ...prev,
+        newPassword: "New Password is required",
+      }));
+    }
+    if (e.target.confirmPassword.value === "") {
+      setPasswordFormError((prev) => ({
+        ...prev,
+        confirmPassword: "Confirm Password is required",
+      }));
+    } 
+    if (e.target.currentPassword.value !== "" && e.target.newPassword.value !== "" && e.target.confirmPassword.value !== "") {
+      alert("Password updated successfully");
+      setPasswordFormError({
+        currentPassword: "",
+        newPassword: "",
+        confirmPassword: "",
+      });
+    }
   };
 
   return (
@@ -131,6 +207,11 @@ export default function Profile() {
                           </p>
                         </div>
                       </div>
+                      {profileFormError.profileImage && (
+                        <p className="text-red-500 text-sm">
+                          {profileFormError.profileImage}
+                        </p>
+                      )}
                     </div>
                     {/* form for edit profile */}
                     <div className="">
@@ -148,6 +229,11 @@ export default function Profile() {
                           placeholder="Name"
                           className="w-full"
                         />
+                        {profileFormError.name && (
+                          <p className="text-red-500 text-sm">
+                            {profileFormError.name}
+                          </p>
+                        )}
                       </div>
                       {/* Email */}
                       <div className="space-y-2">
@@ -164,6 +250,11 @@ export default function Profile() {
                           placeholder="Email"
                           className="w-full"
                         />
+                        {profileFormError.email && (
+                          <p className="text-red-500 text-sm">
+                            {profileFormError.email}
+                          </p>
+                        )}
                       </div>
 
                       {/* Mobile Number */}
@@ -181,6 +272,11 @@ export default function Profile() {
                           placeholder="Number"
                           className="w-full"
                         />
+                        {profileFormError.mobile && (
+                          <p className="text-red-500 text-sm">
+                            {profileFormError.mobile}
+                          </p>
+                        )}
                       </div>
 
                       {/* Update Button */}
@@ -201,7 +297,10 @@ export default function Profile() {
                   <form onSubmit={handlePasswordSubmit} className="space-y-6">
                     <div className="space-y-4">
                       <div>
-                        <Label htmlFor="currentPassword" className="text-sm font-medium text-foreground/90">
+                        <Label
+                          htmlFor="currentPassword"
+                          className="text-sm font-medium text-foreground/90"
+                        >
                           Current Password
                         </Label>
                         <Input
@@ -209,9 +308,17 @@ export default function Profile() {
                           name="currentPassword"
                           type="password"
                         />
+                        {passwordFormError.currentPassword && (
+                          <p className="text-red-500 text-sm">
+                            {passwordFormError.currentPassword}
+                          </p>
+                        )}
                       </div>
                       <div>
-                        <Label htmlFor="newPassword" className="text-sm font-medium text-foreground/90">
+                        <Label
+                          htmlFor="newPassword"
+                          className="text-sm font-medium text-foreground/90"
+                        >
                           New Password
                         </Label>
                         <Input
@@ -219,9 +326,17 @@ export default function Profile() {
                           name="newPassword"
                           type="password"
                         />
+                        {passwordFormError.newPassword && (
+                          <p className="text-red-500 text-sm">
+                            {passwordFormError.newPassword}
+                          </p>
+                        )}
                       </div>
                       <div>
-                        <Label htmlFor="confirmPassword" className="text-sm font-medium text-foreground/90">
+                        <Label
+                          htmlFor="confirmPassword"
+                          className="text-sm font-medium text-foreground/90"
+                        >
                           Confirm New Password
                         </Label>
                         <Input
@@ -229,9 +344,17 @@ export default function Profile() {
                           name="confirmPassword"
                           type="password"
                         />
+                        {passwordFormError.confirmPassword && (
+                          <p className="text-red-500 text-sm">
+                            {passwordFormError.confirmPassword}
+                          </p>
+                        )}
                       </div>
                     </div>
-                    <Button type="submit" className="bg-primary hover:bg-primary/90 text-primary-foreground px-8 py-2 w-full">
+                    <Button
+                      type="submit"
+                      className="bg-primary hover:bg-primary/90 text-primary-foreground px-8 py-2 w-full"
+                    >
                       <KeyRound className="mr-2 h-4 w-4" />
                       Update Password
                     </Button>

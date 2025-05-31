@@ -2,14 +2,50 @@
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
 import { Label } from '@/components/ui/label';
-
+import { useState } from 'react';
 export default function AddColor() {
+
+  // form error for add color
+  const [colorFormError, setColorFormError] = useState({
+    colorName: "",
+    colorHex: "",
+    order: "",
+  });
+
   const handleSubmit = (e) => {
     e.preventDefault();
     console.log(e.target.colorName.value);
     console.log(e.target.colorHex.value);
     console.log(e.target.order.value);
-  }
+
+    // form error for add color
+    if (e.target.colorName.value === "") {
+      setColorFormError((prev) => ({
+        ...prev,
+        colorName: "Color Name is required",
+      }));
+    }
+    if (e.target.colorHex.value === "") {
+      setColorFormError((prev) => ({
+        ...prev,
+        colorHex: "Color Hex is required",
+      }));
+    }
+    if (e.target.order.value === "") {
+      setColorFormError((prev) => ({
+        ...prev,
+        order: "Order is required",
+      }));
+    }
+    if (e.target.colorName.value !== "" && e.target.colorHex.value !== "" && e.target.order.value !== "") {
+      alert("Color added successfully");
+      setColorFormError({
+        colorName: "",
+        colorHex: "",
+        order: "",
+      });
+    }
+  };
 
   return (
     <div className="w-[90%] mx-auto mt-10 p-6 bg-card rounded-xl shadow-sm border border-border space-y-6">
@@ -22,6 +58,9 @@ export default function AddColor() {
             name="colorName"
             placeholder="Enter color name"
           />
+          {colorFormError.colorName && (
+            <p className="text-red-500 text-sm">{colorFormError.colorName}</p>
+          )}
         </div>
 
         <div>
@@ -31,6 +70,9 @@ export default function AddColor() {
             name="colorHex"
             className="w-16 h-10 p-0 border border-input rounded-md cursor-pointer"
           />
+          {colorFormError.colorHex && (
+            <p className="text-red-500 text-sm">{colorFormError.colorHex}</p>
+          )}
         </div>
 
         <div>
@@ -41,6 +83,9 @@ export default function AddColor() {
             name="order"
             placeholder="Enter order"
           />
+          {colorFormError.order && (
+            <p className="text-red-500 text-sm">{colorFormError.order}</p>
+          )}
         </div>
 
         <Button type="submit" className="bg-primary hover:bg-primary/90">

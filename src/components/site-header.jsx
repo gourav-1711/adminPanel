@@ -1,5 +1,5 @@
 import { SidebarIcon, MoonIcon, SunIcon } from "lucide-react";
-
+import React from "react";
 import {
   Breadcrumb,
   BreadcrumbItem,
@@ -20,15 +20,13 @@ import {
   DropdownMenuSeparator,
   DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu";
-import { useNavigate, useParams } from "react-router-dom";
 import { useState } from "react";
+import { useNavigate } from "react-router-dom";
 
 export function SiteHeader() {
   const { toggleSidebar } = useSidebar();
   const navigate = useNavigate();
-
   const [darkMode, setDarkMode] = useState(false);
-  
 
   return (
     <header className="bg-background sticky top-0 z-50 flex w-full items-center border-b">
@@ -47,10 +45,6 @@ export function SiteHeader() {
             <BreadcrumbItem>
               <BreadcrumbLink href="/dashboard">Dashboard</BreadcrumbLink>
             </BreadcrumbItem>
-            <BreadcrumbSeparator />
-            {/* <BreadcrumbItem>
-              <BreadcrumbPage>Terms & Conditions</BreadcrumbPage>
-            </BreadcrumbItem> */}
           </BreadcrumbList>
         </Breadcrumb>
         <div className="ml-auto">
@@ -64,8 +58,12 @@ export function SiteHeader() {
               <DropdownMenuLabel>Name</DropdownMenuLabel>
               <DropdownMenuSeparator />
               <DropdownMenuGroup>
-                <DropdownMenuItem onClick={() => navigate("/profile")}>Profile</DropdownMenuItem>
-                <DropdownMenuItem onClick={() => navigate("/company-profile")}>Company Profile</DropdownMenuItem>
+                <DropdownMenuItem onClick={() => navigate("/profile")}>
+                  Profile
+                </DropdownMenuItem>
+                <DropdownMenuItem onClick={() => navigate("/company-profile")}>
+                  Company Profile
+                </DropdownMenuItem>
               </DropdownMenuGroup>
               <DropdownMenuSeparator />
               <DropdownMenuItem>Logout</DropdownMenuItem>
@@ -75,11 +73,15 @@ export function SiteHeader() {
       </div>
 
       {/* dark mode toggle */}
-      <Button variant="ghost" className="p-2 h-auto fixed right-4 bottom-4 bg-background border border-border" onClick={() => {
-        const body = document.body;
-        body.classList.toggle("dark");
-        setDarkMode(!darkMode);
-      }}>
+      <Button
+        variant="ghost"
+        className="p-2 h-auto fixed right-4 bottom-4 bg-background border border-border"
+        onClick={() => {
+          const body = document.body;
+          body.classList.toggle("dark");
+          setDarkMode(!darkMode);
+        }}
+      >
         {darkMode ? <SunIcon /> : <MoonIcon />}
       </Button>
     </header>

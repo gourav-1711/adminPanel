@@ -10,6 +10,18 @@ import { cn } from "@/lib/utils";
 export default function CompanyProfile() {
   const [image, setImage] = useState(null);
 
+
+  // form error for company profile
+  const [companyProfileFormError, setCompanyProfileFormError] = useState({
+    companyLogo: "",
+    name: "",
+    email: "",
+    mobile: "",
+    address: "",
+    mapUrl: "",
+  });
+
+
   const handleSubmit = (e) => {
     e.preventDefault();
     console.log(e.target.companyLogo.value);
@@ -18,6 +30,55 @@ export default function CompanyProfile() {
     console.log(e.target.mobile.value);
     console.log(e.target.address.value);
     console.log(e.target.mapUrl.value);
+
+    // form error for company profile
+    if (e.target.companyLogo.value === "") {
+      setCompanyProfileFormError((prev) => ({
+        ...prev,
+        companyLogo: "Company Logo is required",
+      }));
+    }
+    if (e.target.name.value === "") {
+      setCompanyProfileFormError((prev) => ({
+        ...prev,
+        name: "Name is required",
+      }));
+    }
+    if (e.target.email.value === "") {
+      setCompanyProfileFormError((prev) => ({
+        ...prev,
+        email: "Email is required",
+      }));
+    }
+    if (e.target.mobile.value === "") {
+      setCompanyProfileFormError((prev) => ({
+        ...prev,
+        mobile: "Mobile Number is required",
+      }));
+    }
+    if (e.target.address.value === "") {
+      setCompanyProfileFormError((prev) => ({
+        ...prev,
+        address: "Address is required",
+      }));
+    }
+    if (e.target.mapUrl.value === "") {
+      setCompanyProfileFormError((prev) => ({
+        ...prev,
+        mapUrl: "Google Map URL is required",
+      }));
+    }
+    if (e.target.companyLogo.value !== "" && e.target.name.value !== "" && e.target.email.value !== "" && e.target.mobile.value !== "" && e.target.address.value !== "" && e.target.mapUrl.value !== "") {
+      alert("Company Profile updated successfully");
+      setCompanyProfileFormError({
+        companyLogo: "",
+        name: "",
+        email: "",
+        mobile: "",
+        address: "",
+        mapUrl: "",
+      });
+    }
   };
 
   return (
@@ -53,6 +114,9 @@ export default function CompanyProfile() {
               </div>
               <p className="text-muted-foreground font-medium">Drag and drop</p>
             </div>
+            {companyProfileFormError.companyLogo && (
+              <p className="text-red-500 text-sm">{companyProfileFormError.companyLogo}</p>
+            )}
           </div>
         </div>
 
@@ -61,6 +125,9 @@ export default function CompanyProfile() {
           <div className="space-y-2">
             <Label htmlFor="name">Name</Label>
             <Input id="name" name="name" placeholder="Name" />
+            {companyProfileFormError.name && (
+              <p className="text-red-500 text-sm">{companyProfileFormError.name}</p>
+            )}
           </div>
 
           <div className="space-y-2">
@@ -71,6 +138,9 @@ export default function CompanyProfile() {
               type="email"
               placeholder="Email"
             />
+            {companyProfileFormError.email && (
+              <p className="text-red-500 text-sm">{companyProfileFormError.email}</p>
+            )}
           </div>
 
           <div className="space-y-2">
@@ -80,6 +150,9 @@ export default function CompanyProfile() {
               name="mobile" 
               placeholder="Mobile Number" 
             />
+            {companyProfileFormError.mobile && (
+              <p className="text-red-500 text-sm">{companyProfileFormError.mobile}</p>
+            )}
           </div>
         </div>
       </div>
@@ -93,6 +166,9 @@ export default function CompanyProfile() {
           placeholder="Address"
           className="min-h-[80px] resize-none"
         />
+        {companyProfileFormError.address && (
+          <p className="text-red-500 text-sm">{companyProfileFormError.address}</p>
+        )}
       </div>
 
       {/* Google Map URL */}
@@ -103,6 +179,9 @@ export default function CompanyProfile() {
           name="mapUrl" 
           placeholder="Google Map URL" 
         />
+        {companyProfileFormError.mapUrl && (
+          <p className="text-red-500 text-sm">{companyProfileFormError.mapUrl}</p>
+        )}
       </div>
 
       {/* Embedded Map */}
@@ -119,9 +198,7 @@ export default function CompanyProfile() {
               referrerPolicy="no-referrer-when-downgrade"
               className="absolute inset-0"
             />
-            <div className="absolute top-2 left-2 bg-background px-2 py-1 rounded text-xs text-primary hover:bg-accent cursor-pointer">
-              View larger map
-            </div>
+           
           </div>
         </CardContent>
       </Card>
