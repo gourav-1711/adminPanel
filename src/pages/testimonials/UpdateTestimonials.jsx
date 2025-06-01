@@ -4,8 +4,13 @@ import { Input } from "@/components/ui/input";
 import { Button } from "@/components/ui/button";
 import { Cloud } from "lucide-react";
 import { Textarea } from "@/components/ui/textarea";
+import { useParams } from "react-router-dom";
 
-export default function AddTestimonials() {
+export default function UpdateTestimonials() {
+
+    const {id} = useParams();
+    console.log(id);
+
   const [image, setImage] = useState(null);
 
   const [formError, setFormError] = useState({
@@ -56,7 +61,7 @@ export default function AddTestimonials() {
       <div className="max-w-6xl mx-auto p-6 bg-background/50 min-h-screen">
         <div className="bg-card rounded-lg border border-border p-8">
           <h1 className="text-2xl font-semibold text-foreground mb-8">
-            Add Testimonials
+            Update Testimonials
           </h1>
 
           <form action="" onSubmit={handleSubmit}>
@@ -190,7 +195,7 @@ export default function AddTestimonials() {
                 type="submit"
                 className="bg-primary hover:bg-primary/90"
               >
-                Add Testimonials
+                Update Testimonials
               </Button>
             </div>
           </form>

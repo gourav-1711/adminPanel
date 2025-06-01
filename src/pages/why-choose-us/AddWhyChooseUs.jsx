@@ -6,6 +6,14 @@ import { Button } from "@/components/ui/button";
 import { Cloud } from "lucide-react";
 
 export default function AddWhyChooseUs() {
+
+  const [formError, setFormError] = useState({
+    title: "",
+    order: "",
+    description: "",
+    image: "",
+  });
+
   const [image, setImage] = useState(null);
   const handleSubmit = (e) => {
     e.preventDefault();
@@ -13,8 +21,27 @@ export default function AddWhyChooseUs() {
     console.log(e.target.order.value);
     console.log(e.target.description.value);
     console.log(e.target.image.files[0]);
+    
 
-    // setImage(URL.createObjectURL(e.target.image.files[0]));
+    if(e.target.title.value === ""){
+      setFormError(prev => ({...prev, title: "Title is required"}));
+    }
+    if(e.target.order.value === ""){
+      setFormError(prev => ({...prev, order: "Order is required"}));
+    }
+    if(e.target.description.value === ""){
+      setFormError(prev => ({...prev, description: "Description is required"}));
+    }
+    if(e.target.image.files[0] === ""){
+      setFormError(prev => ({...prev, image: "Image is required"}));
+    }
+
+    if(e.target.title.value !== "" && e.target.order.value !== "" && e.target.description.value !== "" && e.target.image.files[0] !== ""){
+      setFormError(prev => ({...prev, title: "", order: "", description: "", image: ""}));
+      alert("Why Choose Us added successfully");
+    }
+
+
   };
   return (
     <div>
@@ -46,6 +73,7 @@ export default function AddWhyChooseUs() {
                     </div>
                     <p className="text-muted-foreground font-medium">Drag and drop</p>
                   </div>
+                  {formError.image && <p className="text-red-500">{formError.image}</p>}
                 </div>
               </div>
 
@@ -64,7 +92,10 @@ export default function AddWhyChooseUs() {
                     type="text"
                     placeholder="Title"
                     className="w-full"
+                    name="title"
+                    onChange={(e) => setFormError({...formError, title: ""})}
                   />
+                  {formError.title && <p className="text-red-500">{formError.title}</p>}
                 </div>
 
                 {/* Order Field */}
@@ -80,7 +111,10 @@ export default function AddWhyChooseUs() {
                     type="text"
                     placeholder="Order"
                     className="w-full"
+                    name="order"
+                    onChange={(e) => setFormError({...formError, order: ""})}
                   />
+                  {formError.order && <p className="text-red-500">{formError.order}</p>}
                 </div>
 
                 {/* Description Field */}
@@ -96,7 +130,10 @@ export default function AddWhyChooseUs() {
                     placeholder="Description"
                     rows={6}
                     className="w-full resize-none"
+                    name="description"
+                    onChange={(e) => setFormError({...formError, description: ""})}
                   />
+                  {formError.description && <p className="text-red-500">{formError.description}</p>}
                 </div>
               </div>
             </div>

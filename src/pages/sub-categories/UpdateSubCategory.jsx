@@ -5,7 +5,7 @@ import { Button } from "@/components/ui/button";
 import { Cloud } from "lucide-react";
 import { useState } from "react";
 
-export default function AddSubCategory() {
+export default function UpdateSubCategory() {
   const [formError, setFormError] = useState({
     subCategoryImage: "",
     subCategoryName: "",
@@ -65,7 +65,7 @@ export default function AddSubCategory() {
       <Card className="mx-auto">
         <CardHeader className="pb-4">
           <CardTitle className="text-2xl font-semibold text-foreground">
-            Add Sub Category
+            Update Sub Category
           </CardTitle>
         </CardHeader>
         <CardContent className="space-y-6">
@@ -186,7 +186,7 @@ export default function AddSubCategory() {
             </div>
 
             <Button type="submit" className="bg-primary hover:bg-primary/90">
-              Add Sub Category
+              Update Sub Category
             </Button>
           </form>
         </CardContent>

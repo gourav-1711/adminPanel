@@ -10,7 +10,7 @@ import {
 } from "@/components/ui/table";
 import { Button } from "@/components/ui/button";
 import { Pencil } from "lucide-react";
-
+import { Link } from "react-router-dom";
 export default function ViewFaq() {
   const [filterOpen, setFilterOpen] = useState(false);
 
@@ -75,9 +75,9 @@ export default function ViewFaq() {
               </Button>
             </TableCell>
             <TableCell className=" border-2 border-gray-300">
-              <Button className="bg-blue-500 rounded-3xl hover:bg-blue-700">
+              <Link to={`/faqs/update/${11}`} className="bg-blue-500 rounded-3xl hover:bg-blue-700">
                 <Pencil />
-              </Button>
+              </Link>
             </TableCell>
           </TableRow>
         </TableBody>

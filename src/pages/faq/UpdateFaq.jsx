@@ -4,7 +4,11 @@ import { Label } from "@/components/ui/label";
 import { Button } from "@/components/ui/button";
 import { Textarea } from "@/components/ui/textarea";
 import { useState } from "react";
-export default function AddFaq() {
+import { useParams } from "react-router-dom";
+export default function UpdateFaq() {
+
+    const {id} = useParams();
+    console.log(id);
 
   const [formError, setFormError] = useState({
     question: "",
@@ -34,7 +38,7 @@ export default function AddFaq() {
 
     if(e.target.question.value !== "" && e.target.answer.value !== "" && e.target.order.value !== ""){
       setFormError(prev => ({...prev, question: "", answer: "", order: ""}));
-      alert("Faq added successfully");
+      alert("Faq updated successfully");
     }
 
   };
@@ -43,7 +47,7 @@ export default function AddFaq() {
       <Card className=" mx-auto">
         <CardHeader className="pb-4">
           <CardTitle className="text-2xl font-semibold text-foreground">
-            Add Faq
+            Update Faq
           </CardTitle>
         </CardHeader>
         <CardContent className="space-y-6">
@@ -99,7 +103,7 @@ export default function AddFaq() {
               {formError.order && <p className="text-red-500">{formError.order}</p>}
             </div>
             <Button type="submit" className="bg-primary hover:bg-primary/90 mt-2">
-              Add Faq
+              Update Faq
             </Button>
           </form>
         </CardContent>

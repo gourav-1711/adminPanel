@@ -2,29 +2,45 @@ import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { Button } from "@/components/ui/button";
-import { Cloud } from "lucide-react";
 import { useState } from "react";
+import { Cloud } from "lucide-react";
+import { useParams } from "react-router-dom";
 
-export default function AddSubCategory() {
+export default function UpdateSubSubCategory() {
+
+    const {id} = useParams()
+
+    console.log(id);
+      
+
+  const [image, setImage] = useState(null);
+
   const [formError, setFormError] = useState({
-    subCategoryImage: "",
+    subSubCategoryImage: "",
+    subSubCategoryName: "",
     subCategoryName: "",
     categoryName: "",
     order: "",
   });
 
-  const [image, setImage] = useState(null);
   const handleSubmit = (e) => {
     e.preventDefault();
-    console.log(e.target.subCategoryImage.files[0]);
+    console.log(e.target.subSubCategoryImage.files[0]);
+    console.log(e.target.subSubCategoryName.value);
     console.log(e.target.subCategoryName.value);
     console.log(e.target.categoryName.value);
     console.log(e.target.order.value);
 
-    if (e.target.subCategoryImage.value === "") {
+    if (e.target.subSubCategoryImage.value === "") {
       setFormError((prev) => ({
         ...prev,
-        subCategoryImage: "Sub Category Image is required",
+        subSubCategoryImage: "Sub Sub Category Image is required",
+      }));
+    }
+    if (e.target.subSubCategoryName.value === "") {
+      setFormError((prev) => ({
+        ...prev,
+        subSubCategoryName: "Sub Sub Category Name is required",
       }));
     }
     if (e.target.subCategoryName.value === "") {
@@ -46,30 +62,33 @@ export default function AddSubCategory() {
       }));
     }
     if (
-      e.target.subCategoryImage.value !== "" &&
+      e.target.subSubCategoryImage.value !== "" &&
+      e.target.subSubCategoryName.value !== "" &&
       e.target.subCategoryName.value !== "" &&
       e.target.categoryName.value !== "" &&
       e.target.order.value !== ""
     ) {
-      alert("Sub Category added successfully");
+      alert("sub sub category added successfully");
       setFormError({
-        subCategoryImage: "",
+        subSubCategoryImage: "",
+        subSubCategoryName: "",
         subCategoryName: "",
         categoryName: "",
         order: "",
       });
     }
   };
+
   return (
     <div className="p-8 bg-background/50 w-[90%] mx-auto">
       <Card className="mx-auto">
         <CardHeader className="pb-4">
           <CardTitle className="text-2xl font-semibold text-foreground">
-            Add Sub Category
+            Update Sub Sub Category
           </CardTitle>
         </CardHeader>
-        <CardContent className="space-y-6">
-          <form onSubmit={handleSubmit} className="space-y-6 w-full mx-auto grid grid-cols-1 lg:grid-cols-2 gap-4">
+        <CardContent className="space-y-10">
+          <form onSubmit={handleSubmit} className="space-y-4 grid grid-cols-1 lg:grid-cols-2 gap-6">
             {/* Image Upload Section */}
             <div className="space-y-2">
               <Label className="text-sm font-medium text-foreground/90">
@@ -86,7 +105,7 @@ export default function AddSubCategory() {
                     setImage(URL.createObjectURL(e.target.files[0]))
                   }
                   type="file"
-                  name="subCategoryImage"
+                  name="subSubCategoryImage"
                   className="absolute inset-0 w-full h-full opacity-0 cursor-pointer"
                   accept="image/*"
                 />
@@ -97,19 +116,45 @@ export default function AddSubCategory() {
                   <p className="text-muted-foreground font-medium">
                     Drag and drop
                   </p>
-                  {formError.subCategoryImage && (
-                    <p className="text-red-500 text-sm">
-                      {formError.subCategoryImage}
-                    </p>
-                  )}
                 </div>
+                {formError.subSubCategoryImage && (
+                  <p className="text-red-500 text-sm">
+                    {formError.subSubCategoryImage}
+                  </p>
+                )}
               </div>
             </div>
 
-            <div className="space-y-2">
+            <div className="">
               <div className="space-y-2">
                 <Label
-                  htmlFor="subCategoryName"
+                  htmlFor="subSubCategoryName"
+                  className="text-sm font-medium text-foreground/90"
+                >
+                  Sub Sub Category Name
+                </Label>
+                <Input
+                  id="subSubCategoryName"
+                  name="subSubCategoryName"
+                  placeholder="Sub Sub Category Name"
+                  className="w-full"
+                  onChange={(e) =>
+                    setFormError((prev) => ({
+                      ...prev,
+                      subSubCategoryName:
+                        "",
+                    }))
+                  }
+                />
+                {formError.subSubCategoryName && (
+                  <p className="text-red-500 text-sm">
+                    {formError.subSubCategoryName}
+                  </p>
+                )}
+              </div>
+              <div className="space-y-2">
+                <Label
+                  htmlFor="categoryName"
                   className="text-sm font-medium text-foreground/90"
                 >
                   Sub Category Name
@@ -133,6 +178,7 @@ export default function AddSubCategory() {
                   </p>
                 )}
               </div>
+
               <div className="space-y-2">
                 <Label
                   htmlFor="categoryName"
@@ -185,8 +231,11 @@ export default function AddSubCategory() {
               </div>
             </div>
 
-            <Button type="submit" className="bg-primary hover:bg-primary/90">
-              Add Sub Category
+            <Button
+              type="submit"
+              className="mt-4 bg-primary hover:bg-primary/90"
+            >
+              Update Sub Sub Category
             </Button>
           </form>
         </CardContent>

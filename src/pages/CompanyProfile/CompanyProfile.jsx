@@ -124,7 +124,10 @@ export default function CompanyProfile() {
         <div className="space-y-4">
           <div className="space-y-2">
             <Label htmlFor="name">Name</Label>
-            <Input id="name" name="name" placeholder="Name" />
+            <Input id="name" name="name" placeholder="Name" onChange={(e) => setCompanyProfileFormError((prev) => ({
+              ...prev,
+              name: "",
+            }))} />
             {companyProfileFormError.name && (
               <p className="text-red-500 text-sm">{companyProfileFormError.name}</p>
             )}
@@ -137,6 +140,10 @@ export default function CompanyProfile() {
               name="email"
               type="email"
               placeholder="Email"
+              onChange={(e) => setCompanyProfileFormError((prev) => ({
+                ...prev,
+                email: "",
+              }))}
             />
             {companyProfileFormError.email && (
               <p className="text-red-500 text-sm">{companyProfileFormError.email}</p>
@@ -149,6 +156,10 @@ export default function CompanyProfile() {
               id="mobile" 
               name="mobile" 
               placeholder="Mobile Number" 
+              onChange={(e) => setCompanyProfileFormError((prev) => ({
+                ...prev,
+                mobile: "",
+              }))}
             />
             {companyProfileFormError.mobile && (
               <p className="text-red-500 text-sm">{companyProfileFormError.mobile}</p>
@@ -165,6 +176,10 @@ export default function CompanyProfile() {
           name="address"
           placeholder="Address"
           className="min-h-[80px] resize-none"
+          onChange={(e) => setCompanyProfileFormError((prev) => ({
+            ...prev,
+            address: "",
+          }))}
         />
         {companyProfileFormError.address && (
           <p className="text-red-500 text-sm">{companyProfileFormError.address}</p>
@@ -178,6 +193,10 @@ export default function CompanyProfile() {
           id="mapUrl" 
           name="mapUrl" 
           placeholder="Google Map URL" 
+          onChange={(e) => setCompanyProfileFormError((prev) => ({
+            ...prev,
+            mapUrl: "",
+          }))}
         />
         {companyProfileFormError.mapUrl && (
           <p className="text-red-500 text-sm">{companyProfileFormError.mapUrl}</p>

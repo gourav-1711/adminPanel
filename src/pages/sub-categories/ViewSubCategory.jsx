@@ -9,7 +9,7 @@ import {
 } from "@/components/ui/table";
 import { Button } from "@/components/ui/button";
 import { Pencil } from "lucide-react";
-
+import { Link } from "react-router-dom";
 export default function ViewSubCategory() {
   const [filterOpen, setFilterOpen] = useState(false);
 
@@ -78,9 +78,9 @@ export default function ViewSubCategory() {
               </Button>
             </TableCell>
             <TableCell>
-              <Button className="bg-blue-500 rounded-3xl hover:bg-blue-700">
+              <Link to={`/category/sub-category/update/${11}`}>
                 <Pencil />
-              </Button>
+              </Link>
             </TableCell>
           </TableRow>
         </TableBody>

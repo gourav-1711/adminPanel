@@ -4,8 +4,12 @@ import { Input } from "@/components/ui/input";
 import { Button } from "@/components/ui/button";
 import { Cloud } from "lucide-react";
 import { cn } from "@/lib/utils";
+import { useParams } from "react-router-dom";
 
-export default function AddSlider() {
+export default function UpdateSlider() {
+
+    const {id} = useParams();
+    console.log(id);
 
 
   
@@ -45,7 +49,7 @@ export default function AddSlider() {
       <div className="max-w-6xl mx-auto p-6 bg-background min-h-screen">
         <div className="rounded-lg border bg-card text-card-foreground shadow-sm p-8">
           <h1 className="text-2xl font-semibold mb-8">
-            Add Slider
+            Update Slider
           </h1>
 
           <form action="" onSubmit={handleSubmit}>
@@ -125,7 +129,7 @@ export default function AddSlider() {
             {/* Add Category Button */}
             <div className="mt-8">
               <Button type="submit" className="bg-primary hover:bg-primary/90">
-                Add Slider
+                Update Slider
               </Button>
             </div>
           </form>

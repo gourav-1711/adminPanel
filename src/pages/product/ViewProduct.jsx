@@ -16,8 +16,8 @@ import {
   DialogTrigger,
 } from "@/components/ui/dialog";
 import { Button } from "@/components/ui/button";
-import { Pencil } from "lucide-react";
-
+import { Pencil, Trash } from "lucide-react";
+import { Link } from "react-router-dom";
 export default function ViewProduct() {
   const [filterOpen, setFilterOpen] = useState(false);
 
@@ -40,7 +40,7 @@ export default function ViewProduct() {
         </div>
       </div>
       <div className="w-full  flex justify-between items-center px-2.5">
-        <div className="">Order List</div>
+        <div className="">Product List</div>
         <div className="flex justify-evenly gap-10">
           <Button onClick={filter} className="bg-green-500 hover:bg-green-700">
             Filter
@@ -53,21 +53,21 @@ export default function ViewProduct() {
       <Table>
         <TableHeader>
           <TableRow>
-            <TableHead>
+            <TableHead className="text-center">
               <Button className="bg-red-500 hover:bg-red-700">Delete</Button>
             </TableHead>
-            <TableHead>Sr No</TableHead>
-            <TableHead>Product Name</TableHead>
-            <TableHead>Description</TableHead>
-            <TableHead>Short Description</TableHead>
-            <TableHead>Thumbnail</TableHead>
-            <TableHead>Action</TableHead>
-            <TableHead>Status</TableHead>
+            <TableHead className="text-center">Sr No</TableHead>
+            <TableHead className="text-center">Product Name</TableHead>
+            <TableHead className="text-center">Description</TableHead>
+            <TableHead className="text-center">Short Description</TableHead>
+            <TableHead className="text-center">Thumbnail</TableHead>
+            <TableHead className="text-center">Action</TableHead>
+            <TableHead className="text-center">Status</TableHead>
           </TableRow>
         </TableHeader>
         <TableBody>
           <TableRow>
-            <TableCell className="font-medium">
+            <TableCell  className="font-medium text-center">
               <input
                 type="checkbox"
                 name="checkbox"
@@ -75,13 +75,35 @@ export default function ViewProduct() {
                 id=""
               />
             </TableCell>
-            <TableCell>1</TableCell>
-            <TableCell>Frank</TableCell>
-            <TableCell>Frank ok</TableCell>
-            <TableCell>100</TableCell>
-            <TableCell> $1000 </TableCell>
-            <TableCell>2025-01-01</TableCell>
-            <TableCell>Processing...</TableCell>
+            <TableCell className="text-center">1</TableCell>
+            <TableCell className="text-center">Frank</TableCell>
+            <TableCell className="text-center">Frank ok</TableCell>
+            <TableCell className="text-center">100</TableCell>
+            <TableCell className="text-center">
+              <img
+                src="/vite.svg"
+                alt="Navy blue t-shirt"
+                width={58}
+                height={58}
+                className=" object-cover"
+              />
+            </TableCell>
+            <TableCell className="text-center flex justify-center items-center">
+              <Link to={`/products/update/${11}`} className="bg-transparent border-none text-blue-500 hover:text-blue-700 hover:bg-blue-500/10">
+                <Pencil />
+              </Link>
+              <div className=" border-r-2 border-gray-300 h-full"></div>
+              <Button className="bg-transparent border-none text-red-500 hover:text-red-700 hover:bg-red-500/10">
+                <Trash />
+              </Button>
+            </TableCell>
+            <TableCell className="text-center">
+              <Button className="bg-green-500 hover:bg-green-700">
+                Active
+              </Button>
+              {/* inactive button */}
+              {/* <Button className="bg-red-500 hover:bg-red-700">Inactive</Button> */}
+            </TableCell>
             {/* modal here */}
             <TableCell>
               <Dialog>
@@ -97,9 +119,11 @@ export default function ViewProduct() {
                       <DialogTitle className="text-xl font-semibold">
                         Product Image's & Price
                       </DialogTitle>
-                      <Button variant="ghost" size="icon" className="h-6 w-6">
-                       
-                      </Button>
+                      <Button
+                        variant="ghost"
+                        size="icon"
+                        className="h-6 w-6"
+                      ></Button>
                     </div>
                   </DialogHeader>
 

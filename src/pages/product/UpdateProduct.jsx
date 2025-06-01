@@ -11,13 +11,18 @@ import {
   SelectValue,
 } from "@/components/ui/select";
 import { Button } from "@/components/ui/button";
+import { useParams } from "react-router-dom";
 import { useState } from "react";
 import { Cloud } from "lucide-react";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Bold, Italic, Underline, Plus } from "lucide-react";
 
-export default function AddProduct() {
+export default function UpdateProduct() {
+  const { id } = useParams();
 
+  console.log(id);
+
+  // product form error
   const [productFormError, setProductFormError] = useState({
     productName: "",
     parentCategory: "",
@@ -60,7 +65,7 @@ export default function AddProduct() {
   };
 
   // product description formatting
-  const getTextStyle = () => ({ 
+  const getTextStyle = () => ({
     fontWeight: isBold ? "bold" : "normal",
     fontStyle: isItalic ? "italic" : "normal",
     textDecoration: isUnderline ? "underline" : "none",
@@ -84,7 +89,6 @@ export default function AddProduct() {
     console.log(e.target.actualPrice.value);
     console.log(e.target.salePrice.value);
     console.log(e.target.productDescription.value);
-
 
     // form error for add product
     if (e.target.productImage.value === "") {
@@ -165,7 +169,7 @@ export default function AddProduct() {
         subCategory: "Sub Category is required",
       }));
     }
-    
+
     if (e.target.subSubCategory.value === "") {
       setProductFormError((prev) => ({
         ...prev,
@@ -186,7 +190,14 @@ export default function AddProduct() {
 
       console.log(productFormError.productDescription);
     }
-    if (e.target.productName.value !== "" && e.target.parentCategory.value !== "" && e.target.subCategory.value !== "" && e.target.subSubCategory.value !== "" && e.target.material.value !== "" && e.target.productDescription.value !== "") {
+    if (
+      e.target.productName.value !== "" &&
+      e.target.parentCategory.value !== "" &&
+      e.target.subCategory.value !== "" &&
+      e.target.subSubCategory.value !== "" &&
+      e.target.material.value !== "" &&
+      e.target.productDescription.value !== ""
+    ) {
       alert("Product added successfully");
       setProductFormError({
         productName: "",
@@ -203,13 +214,12 @@ export default function AddProduct() {
         isBestSelling: "",
         isTopRated: "",
         isUpsell: "",
-        
       });
-
     }
   };
   return (
     <div className="p-6 max-w-7xl mx-auto">
+      <h1 className="text-2xl font-bold py-2 mb-4">Update Product</h1>
       <form onSubmit={handleSubmit}>
         <div className="grid grid-cols-1 lg:grid-cols-[40%_auto] gap-8">
           {/* Left Column - Image Uploads */}
@@ -233,7 +243,6 @@ export default function AddProduct() {
                   name="productImage"
                   className="absolute inset-0 w-full h-full opacity-0 cursor-pointer"
                   accept="image/*"
-                  
                 />
                 <div className="flex flex-col items-center space-y-4">
                   <div className="w-16 h-16 bg-muted rounded-full flex items-center justify-center">
@@ -243,9 +252,10 @@ export default function AddProduct() {
                     Drag and drop
                   </p>
                   {productFormError.productImage && (
-                    <p className="text-red-500 text-sm">{productFormError.productImage}</p>
+                    <p className="text-red-500 text-sm">
+                      {productFormError.productImage}
+                    </p>
                   )}
-                  
                 </div>
               </div>
             </div>
@@ -278,7 +288,9 @@ export default function AddProduct() {
                     Drag and drop
                   </p>
                   {productFormError.backImage && (
-                    <p className="text-red-500 text-sm">{productFormError.backImage}</p>
+                    <p className="text-red-500 text-sm">
+                      {productFormError.backImage}
+                    </p>
                   )}
                 </div>
               </div>
@@ -312,7 +324,9 @@ export default function AddProduct() {
                     Drag and drop
                   </p>
                   {productFormError.galleryImage && (
-                    <p className="text-red-500 text-sm">{productFormError.galleryImage}</p>
+                    <p className="text-red-500 text-sm">
+                      {productFormError.galleryImage}
+                    </p>
                   )}
                 </div>
               </div>
@@ -335,23 +349,31 @@ export default function AddProduct() {
                   name="productName"
                   placeholder="Product Name"
                   className="h-11"
-                  onChange={(e) => setProductFormError((prev) => ({
-                    ...prev,
-                    productName:  "",
-                  }))}
+                  onChange={(e) =>
+                    setProductFormError((prev) => ({
+                      ...prev,
+                      productName: "",
+                    }))
+                  }
                 />
                 {productFormError.productName && (
-                  <p className="text-red-500 text-sm">{productFormError.productName}</p>
+                  <p className="text-red-500 text-sm">
+                    {productFormError.productName}
+                  </p>
                 )}
               </div>
               <div>
                 <Label className="text-base font-medium mb-2 block text-foreground">
                   Select Parent Category
                 </Label>
-                <Select name="parentCategory" onValueChange={(e) => setProductFormError((prev) => ({
-                  ...prev,
-                  parentCategory:  "",
-                }))}
+                <Select
+                  name="parentCategory"
+                  onValueChange={(e) =>
+                    setProductFormError((prev) => ({
+                      ...prev,
+                      parentCategory: "",
+                    }))
+                  }
                 >
                   <SelectTrigger className="h-11">
                     <SelectValue placeholder="Nothing Selected" />
@@ -360,9 +382,11 @@ export default function AddProduct() {
                     <SelectItem value="category1">Category 1</SelectItem>
                     <SelectItem value="category2">Category 2</SelectItem>
                   </SelectContent>
-                  </Select>
+                </Select>
                 {productFormError.parentCategory && (
-                  <p className="text-red-500 text-sm">{productFormError.parentCategory}</p>
+                  <p className="text-red-500 text-sm">
+                    {productFormError.parentCategory}
+                  </p>
                 )}
               </div>
             </div>
@@ -373,10 +397,14 @@ export default function AddProduct() {
                 <Label className="text-base font-medium mb-2 block text-foreground">
                   Select Sub Category
                 </Label>
-                <Select name="subCategory" onValueChange={(e) => setProductFormError((prev) => ({
-                  ...prev,
-                  subCategory:  "",
-                }))}
+                <Select
+                  name="subCategory"
+                  onValueChange={(e) =>
+                    setProductFormError((prev) => ({
+                      ...prev,
+                      subCategory: "",
+                    }))
+                  }
                 >
                   <SelectTrigger className="h-11">
                     <SelectValue placeholder="Select Category" />
@@ -387,17 +415,23 @@ export default function AddProduct() {
                   </SelectContent>
                 </Select>
                 {productFormError.subCategory && (
-                  <p className="text-red-500 text-sm">{productFormError.subCategory}</p>
+                  <p className="text-red-500 text-sm">
+                    {productFormError.subCategory}
+                  </p>
                 )}
               </div>
               <div>
                 <Label className="text-base font-medium mb-2 block text-foreground">
                   Select Sub Sub Category
                 </Label>
-                <Select name="subSubCategory" onValueChange={(e) => setProductFormError((prev) => ({
-                  ...prev,
-                  subSubCategory:  "",
-                }))}
+                <Select
+                  name="subSubCategory"
+                  onValueChange={(e) =>
+                    setProductFormError((prev) => ({
+                      ...prev,
+                      subSubCategory: "",
+                    }))
+                  }
                 >
                   <SelectTrigger className="h-11">
                     <SelectValue placeholder="Nothing Selected" />
@@ -408,7 +442,9 @@ export default function AddProduct() {
                   </SelectContent>
                 </Select>
                 {productFormError.subSubCategory && (
-                  <p className="text-red-500 text-sm">{productFormError.subSubCategory}</p>
+                  <p className="text-red-500 text-sm">
+                    {productFormError.subSubCategory}
+                  </p>
                 )}
               </div>
             </div>
@@ -419,10 +455,14 @@ export default function AddProduct() {
                 <Label className="text-base font-medium mb-2 block text-foreground">
                   Select Material
                 </Label>
-                <Select name="material" onValueChange={(e) => setProductFormError((prev) => ({
-                  ...prev,
-                  material: "",
-                }))}
+                <Select
+                  name="material"
+                  onValueChange={(e) =>
+                    setProductFormError((prev) => ({
+                      ...prev,
+                      material: "",
+                    }))
+                  }
                 >
                   <SelectTrigger className="h-11">
                     <SelectValue placeholder="Nothing Selected" />
@@ -434,17 +474,23 @@ export default function AddProduct() {
                   </SelectContent>
                 </Select>
                 {productFormError.material && (
-                  <p className="text-red-500 text-sm">{productFormError.material}</p>
+                  <p className="text-red-500 text-sm">
+                    {productFormError.material}
+                  </p>
                 )}
               </div>
               <div>
                 <Label className="text-base font-medium mb-2 block text-foreground">
                   Select Color
                 </Label>
-                <Select name="color" onValueChange={(e) => setProductFormError((prev) => ({
-                  ...prev,
-                  color: "",
-                }))}
+                <Select
+                  name="color"
+                  onValueChange={(e) =>
+                    setProductFormError((prev) => ({
+                      ...prev,
+                      color: "",
+                    }))
+                  }
                 >
                   <SelectTrigger className="h-11">
                     <SelectValue placeholder="Nothing Selected" />
@@ -456,7 +502,9 @@ export default function AddProduct() {
                   </SelectContent>
                 </Select>
                 {productFormError.color && (
-                  <p className="text-red-500 text-sm">{productFormError.color}</p>
+                  <p className="text-red-500 text-sm">
+                    {productFormError.color}
+                  </p>
                 )}
               </div>
             </div>
@@ -467,12 +515,16 @@ export default function AddProduct() {
                 <Label className="text-base font-medium mb-2 block text-foreground">
                   Select Product Type
                 </Label>
-                <Select name="productType" onValueChange={(e) => setProductFormError((prev) => ({
-                  ...prev,
-                  productType:  "",
-                }))}
+                <Select
+                  name="productType"
+                  onValueChange={(e) =>
+                    setProductFormError((prev) => ({
+                      ...prev,
+                      productType: "",
+                    }))
+                  }
                 >
-                  <SelectTrigger className="h-11" >
+                  <SelectTrigger className="h-11">
                     <SelectValue placeholder="Nothing Selected" />
                   </SelectTrigger>
                   <SelectContent>
@@ -481,17 +533,23 @@ export default function AddProduct() {
                   </SelectContent>
                 </Select>
                 {productFormError.productType && (
-                  <p className="text-red-500 text-sm">{productFormError.productType}</p>
+                  <p className="text-red-500 text-sm">
+                    {productFormError.productType}
+                  </p>
                 )}
               </div>
               <div>
                 <Label className="text-base font-medium mb-2 block text-foreground">
                   Is Best Selling
                 </Label>
-                <Select name="isBestSelling" onValueChange={(e) => setProductFormError((prev) => ({
-                  ...prev,
-                  isBestSelling: "",
-                }))}
+                <Select
+                  name="isBestSelling"
+                  onValueChange={(e) =>
+                    setProductFormError((prev) => ({
+                      ...prev,
+                      isBestSelling: "",
+                    }))
+                  }
                 >
                   <SelectTrigger className="h-11">
                     <SelectValue placeholder="Nothing Selected" />
@@ -502,7 +560,9 @@ export default function AddProduct() {
                   </SelectContent>
                 </Select>
                 {productFormError.isBestSelling && (
-                  <p className="text-red-500 text-sm">{productFormError.isBestSelling}</p>
+                  <p className="text-red-500 text-sm">
+                    {productFormError.isBestSelling}
+                  </p>
                 )}
               </div>
             </div>
@@ -513,10 +573,14 @@ export default function AddProduct() {
                 <Label className="text-base font-medium mb-2 block text-foreground">
                   Is Top Rated
                 </Label>
-                <Select name="isTopRated" onValueChange={(e) => setProductFormError((prev) => ({
-                  ...prev,
-                  isTopRated: "",
-                }))}
+                <Select
+                  name="isTopRated"
+                  onValueChange={(e) =>
+                    setProductFormError((prev) => ({
+                      ...prev,
+                      isTopRated: "",
+                    }))
+                  }
                 >
                   <SelectTrigger className="h-11">
                     <SelectValue placeholder="Nothing Selected" />
@@ -527,17 +591,23 @@ export default function AddProduct() {
                   </SelectContent>
                 </Select>
                 {productFormError.isTopRated && (
-                  <p className="text-red-500 text-sm">{productFormError.isTopRated}</p>
+                  <p className="text-red-500 text-sm">
+                    {productFormError.isTopRated}
+                  </p>
                 )}
               </div>
               <div>
                 <Label className="text-base font-medium mb-2 block text-foreground">
                   Is Upsell
                 </Label>
-                <Select name="isUpsell" onValueChange={(e) => setProductFormError((prev) => ({
-                  ...prev,
-                  isUpsell: "",
-                }))}
+                <Select
+                  name="isUpsell"
+                  onValueChange={(e) =>
+                    setProductFormError((prev) => ({
+                      ...prev,
+                      isUpsell: "",
+                    }))
+                  }
                 >
                   <SelectTrigger className="h-11">
                     <SelectValue placeholder="Nothing Selected" />
@@ -548,7 +618,9 @@ export default function AddProduct() {
                   </SelectContent>
                 </Select>
                 {productFormError.isUpsell && (
-                  <p className="text-red-500 text-sm">{productFormError.isUpsell}</p>
+                  <p className="text-red-500 text-sm">
+                    {productFormError.isUpsell}
+                  </p>
                 )}
               </div>
             </div>
@@ -567,13 +639,17 @@ export default function AddProduct() {
                   name="actualPrice"
                   placeholder="Actual Price"
                   className="h-11"
-                  onChange={(e) => setProductFormError((prev) => ({
-                    ...prev,
-                    actualPrice: "",
-                  }))}
+                  onChange={(e) =>
+                    setProductFormError((prev) => ({
+                      ...prev,
+                      actualPrice: "",
+                    }))
+                  }
                 />
                 {productFormError.actualPrice && (
-                  <p className="text-red-500 text-sm">{productFormError.actualPrice}</p>
+                  <p className="text-red-500 text-sm">
+                    {productFormError.actualPrice}
+                  </p>
                 )}
               </div>
               <div>
@@ -588,13 +664,17 @@ export default function AddProduct() {
                   name="salePrice"
                   placeholder="Sale Price"
                   className="h-11"
-                  onChange={(e) => setProductFormError((prev) => ({
-                    ...prev,
-                    salePrice: "",
-                  }))}
+                  onChange={(e) =>
+                    setProductFormError((prev) => ({
+                      ...prev,
+                      salePrice: "",
+                    }))
+                  }
                 />
                 {productFormError.salePrice && (
-                  <p className="text-red-500 text-sm">{productFormError.salePrice}</p>
+                  <p className="text-red-500 text-sm">
+                    {productFormError.salePrice}
+                  </p>
                 )}
               </div>
             </div>
@@ -671,14 +751,17 @@ export default function AddProduct() {
                 style={getTextStyle()}
                 name="productDescription"
                 placeholder="Enter Your Product Description Here"
-                onChange={(e) => setProductFormError((prev) => ({
-                  ...prev,
-                  productDescription: "",
-                }))}
+                onChange={(e) =>
+                  setProductFormError((prev) => ({
+                    ...prev,
+                    productDescription: "",
+                  }))
+                }
               />
-              <p className="text-red-500 text-sm">{productFormError.productDescription}</p>
+              <p className="text-red-500 text-sm">
+                {productFormError.productDescription}
+              </p>
             </div>
-            
 
             {/* Active Formatting Display */}
             <div className="text-sm text-muted-foreground">
@@ -715,7 +798,7 @@ export default function AddProduct() {
         </Card>
 
         <div className="flex justify-center py-4">
-          <Button type="submit">Add Product</Button>
+          <Button type="submit">Update Product</Button>
         </div>
       </form>
     </div>

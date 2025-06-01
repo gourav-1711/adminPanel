@@ -3,7 +3,13 @@ import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
 import { Label } from '@/components/ui/label';
 import { useState } from 'react';
-export default function AddColor() {
+import { useParams } from 'react-router-dom';
+
+export default function UpdateColor() {
+
+  const { id } = useParams();
+
+  console.log(id);
 
   // form error for add color
   const [colorFormError, setColorFormError] = useState({
@@ -119,7 +125,7 @@ export default function AddColor() {
         </div>
 
         <Button type="submit" className="bg-primary hover:bg-primary/90">
-          Submit
+          Update
         </Button>
       </form>
     </div>

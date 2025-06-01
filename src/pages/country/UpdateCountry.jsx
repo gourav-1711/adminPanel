@@ -3,68 +3,60 @@ import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { Button } from "@/components/ui/button";
 import { useState } from "react";
-export default function AddMaterial() {
-  const [materialFormError, setMaterialFormError] = useState({
-    materialName: "",
+import { useParams } from "react-router-dom";
+export default function UpdateCountry() {
+
+    const {id} = useParams();
+    console.log(id);
+
+  const [formError, setFormError] = useState({
+    countryName: "",
     order: "",
   });
+
   const handleSubmit = (e) => {
     e.preventDefault();
-    console.log(e.target.materialName.value);
+    console.log(e.target.countryName.value);
     console.log(e.target.order.value);
 
-    // form error for add material
-    if (e.target.materialName.value === "") {
-      setMaterialFormError((prev) => ({
-        ...prev,
-        materialName: "Material Name is required",
-      }));
+    if(e.target.countryName.value === ""){
+      setFormError(prev => ({...prev, countryName: "Country Name is required"}));
     }
-    if (e.target.order.value === "") {
-      setMaterialFormError((prev) => ({
-        ...prev,
-        order: "Order is required",
-      }));
+    if(e.target.order.value === ""){
+      setFormError(prev => ({...prev, order: "Order is required"}));
     }
-    if (e.target.materialName.value !== "" && e.target.order.value !== "") {
-      alert("Material added successfully");
-      setMaterialFormError({
-        materialName: "",
-        order: "",
-      });
-    }
-  };
 
+    if(e.target.countryName.value !== "" && e.target.order.value !== ""){
+      setFormError(prev => ({...prev, countryName: "", order: ""}));
+      alert("Country added successfully");
+    }
+    
+  };
   return (
     <div className="p-8 bg-background/50 w-[90%] mx-auto">
       <Card className="mx-auto">
         <CardHeader className="pb-4">
           <CardTitle className="text-2xl font-semibold text-foreground">
-            Add Material
+            Update Country
           </CardTitle>
         </CardHeader>
         <CardContent className="space-y-6">
           <form onSubmit={handleSubmit}>
             <div className="space-y-2">
               <Label
-                htmlFor="materialName"
+                htmlFor="countryName"
                 className="text-sm font-medium text-foreground/90"
               >
-                Material Name
+                Country Name
               </Label>
               <Input
-                id="materialName"
-                name="materialName"
-                placeholder="Material Name"
+                id="countryName"
+                name="countryName"
+                placeholder="Country Name"
                 className="w-full"
-                onChange={(e) => setMaterialFormError((prev) => ({
-                  ...prev,
-                  materialName: "",
-                }))}
+                onChange={(e) => setFormError({...formError, countryName: ""})}
               />
-              {materialFormError.materialName && (
-                <p className="text-red-500 text-sm">{materialFormError.materialName}</p>
-              )}
+              {formError.countryName && <p className="text-red-500">{formError.countryName}</p>}
             </div>
 
             <div className="space-y-2">
@@ -79,17 +71,12 @@ export default function AddMaterial() {
                 name="order"
                 placeholder="Order"
                 className="w-full"
-                onChange={(e) => setMaterialFormError((prev) => ({
-                  ...prev,
-                  order: "",
-                }))}
+                onChange={(e) => setFormError({...formError, order: ""})}
               />
-              {materialFormError.order && (
-                <p className="text-red-500 text-sm">{materialFormError.order}</p>
-              )}
+              {formError.order && <p className="text-red-500">{formError.order}</p>}
             </div>
             <Button type="submit" className="bg-primary hover:bg-primary/90 mt-2">
-              Add Material
+              Update Country
             </Button>
           </form>
         </CardContent>

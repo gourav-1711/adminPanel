@@ -3,7 +3,9 @@ import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { Button } from "@/components/ui/button";
 import { useState } from "react";
-export default function AddMaterial() {
+import { useParams } from "react-router-dom";
+export default function UpdateMaterial() {
+  const { id } = useParams();
   const [materialFormError, setMaterialFormError] = useState({
     materialName: "",
     order: "",
@@ -40,7 +42,7 @@ export default function AddMaterial() {
       <Card className="mx-auto">
         <CardHeader className="pb-4">
           <CardTitle className="text-2xl font-semibold text-foreground">
-            Add Material
+            Update Material
           </CardTitle>
         </CardHeader>
         <CardContent className="space-y-6">
@@ -89,7 +91,7 @@ export default function AddMaterial() {
               )}
             </div>
             <Button type="submit" className="bg-primary hover:bg-primary/90 mt-2">
-              Add Material
+              Update Material
             </Button>
           </form>
         </CardContent>

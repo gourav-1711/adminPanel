@@ -1,4 +1,5 @@
 import React, { useState } from "react";
+import { Link } from "react-router-dom";
 import {
   Table,
   TableBody,
@@ -33,7 +34,7 @@ export default function ViewMaterial() {
           <Button onClick={filter} className="bg-green-500 hover:bg-green-700">
             Filter
           </Button>
-          <Button className="bg-blue-500 rounded-3xl hover:bg-blue-700">
+          <Button  className="bg-blue-500 rounded-3xl hover:bg-blue-700">
             <Pencil />
           </Button>
         </div>
@@ -73,9 +74,9 @@ export default function ViewMaterial() {
               </Button>
             </TableCell>
             <TableCell>
-              <Button className="bg-blue-500 rounded-3xl hover:bg-blue-700">
+              <Link to={`/material/update/${11}`} className="bg-blue-500 rounded-3xl hover:bg-blue-700">
                 <Pencil />
-              </Button>
+              </Link>
             </TableCell>
           </TableRow>
         </TableBody>

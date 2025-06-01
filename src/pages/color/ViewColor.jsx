@@ -10,6 +10,7 @@ import {
 } from "@/components/ui/table";
 import { Button } from "@/components/ui/button"
 import { Pencil } from "lucide-react";
+import { Link } from "react-router-dom";
 
 
 export default function ViewColor() {
@@ -72,7 +73,9 @@ export default function ViewColor() {
               />
             </TableCell>
             <TableCell>Red</TableCell>
-            <TableCell >#ff0000</TableCell>
+            <TableCell >
+              <div className="w-10 h-10 rounded-full" style={{ backgroundColor: "#ff0000" }}></div>
+            </TableCell>
             <TableCell >1</TableCell>
              <TableCell >
                 <Button className="bg-green-500 hover:bg-green-700">
@@ -80,9 +83,9 @@ export default function ViewColor() {
                 </Button>
              </TableCell>
              <TableCell >
-                <Button className="bg-blue-500 rounded-3xl hover:bg-blue-700">
+                <Link to={`/color/update/${12}`} className="bg-blue-500 rounded-3xl hover:bg-blue-700">
                     <Pencil />
-                </Button>
+                </Link>
              </TableCell>
           </TableRow>
         </TableBody>

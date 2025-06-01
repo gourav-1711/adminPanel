@@ -10,7 +10,7 @@ import {
 } from "@/components/ui/table";
 import { Button } from "@/components/ui/button"
 import { Pencil } from "lucide-react";
-
+import { Link } from "react-router-dom";
 
 export default function ViewTestimonials() {
   const [filterOpen, setFilterOpen] = useState(false);
@@ -81,9 +81,9 @@ export default function ViewTestimonials() {
                 </Button>
              </TableCell>
              <TableCell >
-                <Button className="bg-blue-500 rounded-3xl hover:bg-blue-700">
+                <Link to={`/testimonials/update/${11}`} className="bg-blue-500 rounded-3xl hover:bg-blue-700">
                     <Pencil />
-                </Button>
+                </Link>
              </TableCell>
           </TableRow>
         </TableBody>

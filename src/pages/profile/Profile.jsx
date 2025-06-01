@@ -228,6 +228,10 @@ export default function Profile() {
                           name="name"
                           placeholder="Name"
                           className="w-full"
+                          onChange={(e) => setProfileFormError((prev) => ({
+                            ...prev,
+                            name: "",
+                          }))}
                         />
                         {profileFormError.name && (
                           <p className="text-red-500 text-sm">
@@ -249,6 +253,10 @@ export default function Profile() {
                           type="email"
                           placeholder="Email"
                           className="w-full"
+                          onChange={(e) => setProfileFormError((prev) => ({
+                            ...prev,
+                            email: "",
+                          }))}
                         />
                         {profileFormError.email && (
                           <p className="text-red-500 text-sm">
@@ -271,6 +279,10 @@ export default function Profile() {
                           type="tel"
                           placeholder="Number"
                           className="w-full"
+                          onChange={(e) => setProfileFormError((prev) => ({
+                            ...prev,
+                            mobile: "",
+                          }))}
                         />
                         {profileFormError.mobile && (
                           <p className="text-red-500 text-sm">
@@ -307,6 +319,10 @@ export default function Profile() {
                           id="currentPassword"
                           name="currentPassword"
                           type="password"
+                          onChange={(e) => setPasswordFormError((prev) => ({
+                            ...prev,
+                            currentPassword: "",
+                          }))}
                         />
                         {passwordFormError.currentPassword && (
                           <p className="text-red-500 text-sm">
@@ -325,6 +341,10 @@ export default function Profile() {
                           id="newPassword"
                           name="newPassword"
                           type="password"
+                          onChange={(e) => setPasswordFormError((prev) => ({
+                            ...prev,
+                            newPassword: "",
+                          }))}
                         />
                         {passwordFormError.newPassword && (
                           <p className="text-red-500 text-sm">
@@ -343,6 +363,10 @@ export default function Profile() {
                           id="confirmPassword"
                           name="confirmPassword"
                           type="password"
+                          onChange={(e) => setPasswordFormError((prev) => ({
+                            ...prev,
+                            confirmPassword: "",
+                          }))}
                         />
                         {passwordFormError.confirmPassword && (
                           <p className="text-red-500 text-sm">
