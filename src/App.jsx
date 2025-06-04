@@ -56,7 +56,7 @@ export default function App() {
     }
   };
   return (
-    <div className={"flex flex-col gap-6 mx-auto w-[40%] my-[40px] "}>
+    <div className={"flex flex-col gap-6 mx-auto w-[90%] md:w-[60%] lg:w-[40%] my-[40px] "}>
       <Card>
         <CardHeader>
           <CardTitle>Login to your account</CardTitle>
