@@ -24,6 +24,16 @@ export default function App() {
     console.log(e.target.email.value);
     console.log(e.target.password.value);
 
+    // match email and password
+    if (
+      e.target.email.value !== "" &&
+      e.target.password.value !== ""
+    ) {
+      setTimeout(() => {
+        navigate("/dashboard");
+      }, 1000);
+    }
+
     if (e.target.email.value === "" && e.target.password.value === "") {
       setFormError({
         email: "Email is required",
@@ -44,38 +54,7 @@ export default function App() {
         }
       }
     }
-
-    if (
-      e.target.email.value === "gouravdadhich34@gmail.com" &&
-      e.target.password.value === "12345678"
-    ) {
-      setTimeout(() => {
-        navigate("/dashboard");
-      }, 1000);
-    }
-    else{
-      if(e.target.email.value !== "gouravdadhich34@gmail.com" && e.target.email.value !== ""){
-        setFormError({
-          email: "Invalid email",
-          password: "",
-        });
-      }
-      // else{
-      //   if(e.target.password.value !== "12345678" && e.target.password.value !== ""){
-      //     setFormError({
-      //       email: "",
-      //       password: "Invalid password",
-      //     });
-      //   } else if(e.target.password.value !== "12345678" && e.target.password.value !== "" && e.target.email.value !== "gouravdadhich34@gmail.com" && e.target.email.value !== ""){
-      //     setFormError({
-      //       email: "Invalid email",
-      //       password: "Invalid password",
-      //     });
-      //   }
-      // }
-    }
   };
-
   return (
     <div className={"flex flex-col gap-6 mx-auto w-[40%] my-[40px] "}>
       <Card>
